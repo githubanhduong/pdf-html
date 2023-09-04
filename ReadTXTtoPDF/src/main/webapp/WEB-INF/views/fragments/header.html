@@ -1,0 +1,15 @@
+<article>
+	<header>
+		<div th:unless="${pageNumber}">
+			<img
+				src="https://znews-photo.zingcdn.me/w360/Uploaded/aohunkx/2019_02_11/Doi_tau_bay_hien_dai_cua_Vietjet_thumb.jpg"
+				alt="logo" width="200" height="80"></img>
+			<div th:replace="fragments/footer :: footer"></div>
+			<div style="page-break-before: always">&nbsp;</div>
+		</div>
+		<div th:if="${pageNumber}">
+			<p>Header</p>
+		</div>
+	</header>
+	<p>Lorem Ipsum dolor set amet....</p>
+</article>

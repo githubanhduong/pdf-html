@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+<title>User Data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport"
+	content="width=device-width,initial-scale=1.0,minimum-scale=1.0" />
+
+<link rel="stylesheet" type="text/css"
+	th:href="@{classpath:/META-INF/resources/webjars/bootstrap/4.6.2/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{classpath:/css/style.css}" />
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+	integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<script type="text/javascript"
+	th:src="@{classpath:/META-INF/resources/webjars/jquery/3.6.1/jquery.min.js}"></script>
+<script type="text/javascript"
+	th:src="@{classpath:/META-INF/resources/webjars/bootstrap/4.6.2/js/bootstrap.min.js}"></script>
+
+</head>
+
+<body>
+	<div th:replace="fragments/header :: header"></div>
+	<div th:each="pageNumber : ${#numbers.sequence(1, totalPages)}">
+		<div th:replace="fragments/header :: header"></div>
+		<div class="container-fluid table-responsive"
+			style="max-width: 700px; margin: 0 auto;">
+			<button class="text-center">List User</button>
+
+			<div class="my-3">
+				<form action="http://localhost:8080/SpringMVCApp1/login/success"
+					id="searchForm">
+
+					<div class="row d-flex">
+						<div class="col-md-6 mt-2">
+							<div class="search">
+								<i class="fa fa-search"></i> <input id="keyword" type="search"
+									name="keyword" th:value="${keyword}" required="required"
+									class="form-control" placeholder="Enter keyword"></input>
+							</div>
+						</div>
+					</div>
+
+				</form>
+			</div>
+
+			<table class="table table-hover table-responsive-xl"
+				style="width: 100%">
+				<thead class="thead-light">
+					<tr>
+						<th th:replace="fragments/label :: header('id','Id')"></th>
+						<th th:replace="fragments/label :: header('username','Username')"></th>
+						<th th:replace="fragments/label :: header('author','Author')"></th>
+						<th th:replace="fragments/label :: header('id','Level')"></th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<tr th:each="user : ${__${'listUsers_' + pageNumber}__}">
+						<td>[[${user.id}]]</td>
+						<td>[[${user.username}]]</td>
+						<td>[[${user.password}]]</td>
+						<th scope="row">[[${user.id}]]</th>
+					</tr>
+
+				</tbody>
+			</table>
+		</div>
+
+		<div th:replace="fragments/footer :: footer"></div>
+
+		<div th:unless="${pageNumber == totalPages}"
+			style="page-break-before: always">&nbsp;</div>
+	</div>
+
+</body>
+
+</html>
